@@ -20,7 +20,8 @@ const total = 25;
 
 
 let corsOptions = {
-	origin: '*'
+	origin: '*',
+	methods:['GET', 'PUT', 'POST']
   }
 
 app.use(cors(corsOptions))
