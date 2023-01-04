@@ -36,6 +36,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// let corsOptions = {
+// 	origin: '*',
+// 	methods:['GET', 'PUT', 'POST']
+//   }
+
+// app.use(cors(corsOptions))
+
+// app.use(bodyParser.json())
+
 app.get('/', (req, res) => {
 	res.send('hello world')
 })
@@ -69,7 +78,7 @@ app.get('/choices', (req, res) => {
 	})
 })
 
-app.post('/data',(req, res) => {
+app.post('/data', cors(corsOptions) ,(req, res) => {
 	res.send('hello world') 
 	let error = false
 	let data = req.body;
@@ -116,8 +125,11 @@ app.post('/data',(req, res) => {
 		if (!error)
 			validation_workbook.xlsx.writeFile(validation_file_path).then(() => {
 				res.status(200).send('success');
-				console.log('done');
-			})
+				console.log('writing done');
+			}).catch((err) => {
+				console.log('writing error '+err);
+			}).finally(() => {console.log("Final block executions")})
+
 		else
 			return res.status(400).send('email already exists');
 	})
