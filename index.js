@@ -15,7 +15,7 @@ const dataset_workbook = new ExcelJS.Workbook();
 const validation_file_path = path.join(excel_files_path + 'validation.xlsx');
 const validation_workbook = new ExcelJS.Workbook();
 
-const total = 25; 
+const total = 5; 
 
 
 
@@ -61,60 +61,58 @@ app.get('/choices', (req, res) => {
 	})
 })
 
-app.options('/data', cors());
-
-app.post('/data', (req, res) => {
+app.post('/data', cors(corsOptions) ,(req, res) => {
 	res.send('hello world') 
-	// let error = false
-	// let data = req.body;
-	// let id = parseInt(data.id);
-	// let no_of_rows = total;
-	// id = id * no_of_rows;
-	// id = id + 2;
+	let error = false
+	let data = req.body;
+	let id = parseInt(data.id);
+	let no_of_rows = total;
+	id = id * no_of_rows;
+	id = id + 2;
 
-	// // write to validation file
-	// validation_workbook.xlsx.readFile(validation_file_path).then(() => {
-	// 	const worksheet = validation_workbook.worksheets[0];
-	// 	const rows = worksheet.getRows(parseInt(id), no_of_rows)
-	// 	const headerRow = worksheet.getRow(1);
-	// 	const headers = headerRow.values.slice(1);
+	// write to validation file
+	validation_workbook.xlsx.readFile(validation_file_path).then(() => {
+		const worksheet = validation_workbook.worksheets[0];
+		const rows = worksheet.getRows(parseInt(id), no_of_rows)
+		const headerRow = worksheet.getRow(1);
+		const headers = headerRow.values.slice(1);
 
-	// 	rows.forEach((row, index) => {
-	// 		let value = data.values[index]
+		rows.forEach((row, index) => {
+			let value = data.values[index]
 
-	// 		for (let i = 1; i < headers.length; i++) {
-	// 			if (row.getCell(i + 1).value === '' || row.getCell(i + 1).value === null) {
-	// 				row.getCell(i + 1).value = 0;
-	// 			}
+			for (let i = 1; i < headers.length; i++) {
+				if (row.getCell(i + 1).value === '' || row.getCell(i + 1).value === null) {
+					row.getCell(i + 1).value = 0;
+				}
 
-	// 			if (headers[i].toLowerCase().trim() === value.toLowerCase().trim()) {
-	// 				row.getCell(i + 1).value = parseInt(row.getCell(i + 1).value) + 1;
-	// 			}
-	// 			if (headers[i].toLowerCase().trim() === 'email') {
-	// 				if (typeof row.getCell(i + 1).value === 'number')
-	// 					row.getCell(i + 1).value = '';
+				if (headers[i].toLowerCase().trim() === value.toLowerCase().trim()) {
+					row.getCell(i + 1).value = parseInt(row.getCell(i + 1).value) + 1;
+				}
+				if (headers[i].toLowerCase().trim() === 'email') {
+					if (typeof row.getCell(i + 1).value === 'number')
+						row.getCell(i + 1).value = '';
 
-	// 				if (row.getCell(i + 1).value === '' || row.getCell(i + 1).value === null) {
-	// 					row.getCell(i + 1).value = data.email.toLowerCase().trim() + ',';
-	// 				} else {
-	// 					if (!row.getCell(i + 1).value.toLowerCase().trim().includes(data.email.toLowerCase().trim())) {
-	// 						row.getCell(i + 1).value += data.email.toLowerCase().trim() + ',';
-	// 					} else {
-	// 						error = true;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	})
+					if (row.getCell(i + 1).value === '' || row.getCell(i + 1).value === null) {
+						row.getCell(i + 1).value = data.email.toLowerCase().trim() + ',';
+					} else {
+						if (!row.getCell(i + 1).value.toLowerCase().trim().includes(data.email.toLowerCase().trim())) {
+							row.getCell(i + 1).value += data.email.toLowerCase().trim() + ',';
+						} else {
+							error = true;
+						}
+					}
+				}
+			}
+		})
 
-	// 	if (!error)
-	// 		validation_workbook.xlsx.writeFile(validation_file_path).then(() => {
-	// 			res.status(200).send('success');
-	// 			console.log('done');
-	// 		})
-	// 	else
-	// 		return res.status(400).send('email already exists');
-	// })
+		if (!error)
+			validation_workbook.xlsx.writeFile(validation_file_path).then(() => {
+				res.status(200).send('success');
+				console.log('done');
+			})
+		else
+			return res.status(400).send('email already exists');
+	})
 
 })
 
