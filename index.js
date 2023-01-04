@@ -3,6 +3,7 @@ import ExcelJS from 'exceljs';
 import Express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 const excel_files_path = 'ExcelFiles/'
 const app = Express();
@@ -24,7 +25,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-	res.send('Hello World!')
+	res.send(path.join(process.cwd(), 'ExcelFiles', 'dataset.xlsx'))
 })
 
 app.get('/data', (req, res) => {
