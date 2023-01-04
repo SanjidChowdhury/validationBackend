@@ -5,14 +5,14 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import path from 'path';
 
-const excel_files_path = 'ExcelFiles/'
+const excel_files_path = path.join(process.cwd(), 'ExcelFiles')
 const app = Express();
 const port = 3000
 
-const dataset_file_path = excel_files_path + 'dataset.xlsx';
+const dataset_file_path = path.join(excel_files_path + 'dataset.xlsx');
 const dataset_workbook = new ExcelJS.Workbook();
 
-const validation_file_path = excel_files_path + 'validation.xlsx';
+const validation_file_path = path.join(excel_files_path + 'validation.xlsx');
 const validation_workbook = new ExcelJS.Workbook();
 
 const total = 25; 
@@ -25,7 +25,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-	res.send(path.join(process.cwd(), 'ExcelFiles', 'dataset.xlsx'))
+	res.send('hello world')
 })
 
 app.get('/data', (req, res) => {
