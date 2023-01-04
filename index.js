@@ -36,15 +36,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-let corsOptions = {
-	origin: '*',
-	methods:['GET', 'PUT', 'POST']
-  }
-
-app.use(cors(corsOptions))
-
-app.use(bodyParser.json())
-
 app.get('/', (req, res) => {
 	res.send('hello world')
 })
