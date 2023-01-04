@@ -69,7 +69,7 @@ app.get('/choices', (req, res) => {
 	})
 })
 
-app.post('/data', cors(corsOptions) ,(req, res) => {
+app.post('/data',(req, res) => {
 	res.send('hello world') 
 	let error = false
 	let data = req.body;
