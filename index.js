@@ -17,11 +17,15 @@ const validation_workbook = new ExcelJS.Workbook();
 
 const total = 25; 
 
-app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`)
-})
 
-app.use(cors())
+
+let corsOptions = {
+	origin: 'https://validation-backend-imei.vercel.app',
+	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
+app.use(cors(corsOptions))
+
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
@@ -112,4 +116,6 @@ app.post('/data', (req, res) => {
 })
 
 
-
+app.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${port}`)
+})
