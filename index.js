@@ -5,7 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import path from 'path';
 
-const excel_files_path = path.join(process.cwd(), 'ExcelFiles')
+const excel_files_path = path.join(process.cwd(), 'ExcelFiles/')
 const app = Express();
 const port = 3000
 
