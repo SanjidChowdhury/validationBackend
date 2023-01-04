@@ -36,15 +36,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// let corsOptions = {
-// 	origin: '*',
-// 	methods:['GET', 'PUT', 'POST']
-//   }
-
-// app.use(cors(corsOptions))
-
-// app.use(bodyParser.json())
-
 app.get('/', (req, res) => {
 	res.send('hello world')
 })
@@ -78,7 +69,7 @@ app.get('/choices', (req, res) => {
 	})
 })
 
-app.post('/data', cors(corsOptions) ,(req, res) => {
+app.post('/data',(req, res) => {
 	res.send('hello world') 
 	let error = false
 	let data = req.body;
