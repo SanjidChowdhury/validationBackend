@@ -19,12 +19,12 @@ const total = 25;
 
 
 
-let corsOptions = {
-	origin: 'https://validation-backend-imei.vercel.app',
-	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
+// let corsOptions = {
+// 	origin: '*',
+// 	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+//   }
 
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(bodyParser.json())
 
