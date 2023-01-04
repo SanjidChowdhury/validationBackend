@@ -60,7 +60,9 @@ app.get('/choices', (req, res) => {
 	})
 })
 
-app.post('/data',cors(), (req, res) => {
+app.options('/data', cors());
+
+app.post('/data', (req, res) => {
 	let error = false
 	let data = req.body;
 	let id = parseInt(data.id);
