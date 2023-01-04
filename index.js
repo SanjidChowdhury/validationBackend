@@ -19,12 +19,11 @@ const total = 25;
 
 
 
-// let corsOptions = {
-// 	origin: 'https://sanjidchowdhury.github.io', 
-// 	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//   }
+let corsOptions = {
+	origin: '*'
+  }
 
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
 
