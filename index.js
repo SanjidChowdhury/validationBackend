@@ -1,9 +1,16 @@
 "use strict"
-import ExcelJS from 'exceljs';
-import Express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import path from 'path';
+// import ExcelJS from 'exceljs';
+// import Express from 'express';
+// import cors from 'cors';
+// import bodyParser from 'body-parser';
+// import path from 'path';
+
+const Express = require('express');
+const ExcelJS = require('exceljs');
+const bodyParser = require('body-parser');
+const path = require('path');
+const cors = require('cors');
+const compression = require('compression'); 
 
 const excel_files_path = path.join(process.cwd(), 'ExcelFiles/')
 const app = Express();
@@ -17,7 +24,17 @@ const validation_workbook = new ExcelJS.Workbook();
 
 const total = 5; 
 
+// compress all responses 
+app.use(compression());
 
+// This is CORS-enabled for all origins
+app.use(cors()); 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 let corsOptions = {
 	origin: '*',
